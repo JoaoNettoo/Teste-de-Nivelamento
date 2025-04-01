@@ -24,31 +24,33 @@ CREATE TABLE operadoras_saude (
 );
 
 -- Importando os dados do CSV (ajustando o encoding para UTF-8)
-LOAD DATA INFILE 'C:/Users/Joao Neto/Documents/Teste-de-Nivelamento/Teste_3/Relatorio_cadop.csv' 
-INTO TABLE operadoras_saude
-FIELDS TERMINATED BY ',' 
-ENCLOSED BY '"' 
-LINES TERMINATED BY '\n' 
-IGNORE 1 ROWS
-(@Registro_ANS, @CNPJ, @Razao_social, @Nome_Fantasia, @Modalidade, @Logradouro, @Numero, @Complemento, @Bairro, @Cidade, @UF, @CEP, @DDD, @Telefone, @Fax, @Endereco_eletronico, @Representante, @Cargo_Representante, @Regiao_de_comercializacao, @Data_Registro_ANS)
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Relatorio_cadop.csv'  
+INTO TABLE operadoras_saude  
+FIELDS TERMINATED BY ';'  
+ENCLOSED BY '"'  
+LINES TERMINATED BY '\n'  
+IGNORE 1 ROWS  
+(Registro_ANS, CNPJ, Razao_social, Nome_Fantasia, Modalidade, Logradouro, Numero, Complemento, Bairro, Cidade, UF, CEP, DDD, Telefone, Fax, Endereco_eletronico, Representante, Cargo_Representante, Regiao_de_comercializacao, Data_Registro_ANS)  
 SET 
-    Registro_ANS = NULLIF(@Registro_ANS, ''),
-    CNPJ = NULLIF(@CNPJ, ''),
-    Razao_social = NULLIF(@Razao_social, ''),
-    Nome_Fantasia = NULLIF(@Nome_Fantasia, ''),
-    Modalidade = NULLIF(@Modalidade, ''),
-    Logradouro = NULLIF(@Logradouro, ''),
-    Numero = NULLIF(@Numero, ''),
-    Complemento = NULLIF(@Complemento, ''),
-    Bairro = NULLIF(@Bairro, ''),
-    Cidade = NULLIF(@Cidade, ''),
-    UF = NULLIF(@UF, ''),
-    CEP = NULLIF(@CEP, ''),
-    DDD = NULLIF(@DDD, ''),
-    Telefone = NULLIF(@Telefone, ''),
-    Fax = NULLIF(@Fax, ''),
-    Endereco_eletronico = NULLIF(@Endereco_eletronico, ''),
-    Representante = NULLIF(@Representante, ''),
-    Cargo_Representante = NULLIF(@Cargo_Representante, ''),
-    Regiao_de_comercializacao = NULLIF(@Regiao_de_comercializacao, ''),
-    Data_Registro_ANS = STR_TO_DATE(@Data_Registro_ANS, '%d/%m/%Y');
+    Registro_ANS = NULLIF(CAST(Registro_ANS AS UNSIGNED), ''),
+    CNPJ = NULLIF(CNPJ, ''),
+    Razao_social = NULLIF(Razao_social, ''),
+    Nome_Fantasia = NULLIF(Nome_Fantasia, ''),
+    Modalidade = NULLIF(Modalidade, ''),
+    Logradouro = NULLIF(Logradouro, ''),
+    Numero = NULLIF(Numero, ''),
+    Complemento = NULLIF(Complemento, ''),
+    Bairro = NULLIF(Bairro, ''),
+    Cidade = NULLIF(Cidade, ''),
+    UF = NULLIF(UF, ''),
+    CEP = NULLIF(CEP, ''),
+    DDD = NULLIF(DDD, ''),
+    Telefone = NULLIF(Telefone, ''),
+    Fax = NULLIF(Fax, ''),
+    Endereco_eletronico = NULLIF(Endereco_eletronico, ''),
+    Representante = NULLIF(Representante, ''),
+    Cargo_Representante = NULLIF(Cargo_Representante, ''),
+    Regiao_de_comercializacao = NULLIF(Regiao_de_comercializacao, ''),
+    Data_Registro_ANS = STR_TO_DATE(TRIM(BOTH '"' FROM @Data_Registro_ANS), '%Y-%m-%d');
+    
+
