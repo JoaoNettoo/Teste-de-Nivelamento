@@ -1,3 +1,4 @@
+-- Código utilizado no MySql Workbench
 -- Criação da tabela para armazenar os dados do CSV
 CREATE TABLE operadoras_saude (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -24,7 +25,7 @@ CREATE TABLE operadoras_saude (
 );
 
 -- Importando os dados do CSV (ajustando o encoding para UTF-8)
-LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Relatorio_cadop.csv'  
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Relatorio_cadop.csv' -- Foi salvo localmente nesse caminho para acesso do MySql
 INTO TABLE operadoras_saude  
 FIELDS TERMINATED BY ';'  
 ENCLOSED BY '"'  
@@ -53,4 +54,38 @@ SET
     Regiao_de_comercializacao = NULLIF(Regiao_de_comercializacao, ''),
     Data_Registro_ANS = STR_TO_DATE(TRIM(BOTH '"' FROM @Data_Registro_ANS), '%Y-%m-%d');
     
+    -- O resultado dessa query pode ser visto na pasta "Teste_3/Prints"
+
+    -- Criação de uma única tabela para importar os dados dos arquivos.csv de descrição das despesas das operadoras
+    -- do último ano de 2024 
+
+CREATE TABLE despesas_operadoras (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Data DATE,
+    Reg_ANS BIGINT,
+    Cd_Conta_Contabil VARCHAR(50),
+    Descricao VARCHAR(255),
+    Vl_Saldo_Inicial DECIMAL(15,2),
+    Vl_Saldo_Final DECIMAL(15,2),
+    Trimestre VARCHAR(10) -- Nova coluna para identificar o período
+);
+
+-- Importação de cada arquivo.csv, indicando o trimestre
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/1T2024.csv' -- Foi salvo localmente nesse caminho para acesso do MySql
+INTO TABLE despesas_operadoras
+FIELDS TERMINATED BY ';'
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(@Data, @Reg_ANS, @Cd_Conta_Contabil, @Descricao, @Vl_Saldo_Inicial, @Vl_Saldo_Final)
+SET 
+    Data = STR_TO_DATE(@Data, '%Y-%m-%d'),
+    Reg_ANS = NULLIF(@Reg_ANS, ''),
+    Cd_Conta_Contabil = NULLIF(@Cd_Conta_Contabil, ''),
+    Descricao = NULLIF(@Descricao, ''),
+    Vl_Saldo_Inicial = NULLIF(REPLACE(@Vl_Saldo_Inicial, ',', '.'), ''),
+    Vl_Saldo_Final = NULLIF(REPLACE(@Vl_Saldo_Final, ',', '.'), ''),
+    Trimestre = '1T2024'; -- Necessário alterar para importar o trimestre
+
 
