@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "895c325b-7170-49bf-bdb5-516cedbb5096",
+		"name": "Requisição de operadoras por CNPJ/Nome fantasia/ Razão social",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39421607"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:5000/buscar?termo=41788751000100",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/buscar?termo=ADRESS\n",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"buscar"
+					],
+					"query": [
+						{
+							"key": "termo",
+							"value": "ADRESS\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:5000/buscar?termo=ADRESS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/buscar?termo=ADRESS\n",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"buscar"
+					],
+					"query": [
+						{
+							"key": "termo",
+							"value": "ADRESS\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:5000/buscar?termo=AIRES OPERADORA DE SAUDE LTDA",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/buscar?termo=AIRES OPERADORA DE SAUDE LTDA\n",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"buscar"
+					],
+					"query": [
+						{
+							"key": "termo",
+							"value": "AIRES OPERADORA DE SAUDE LTDA\n"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
