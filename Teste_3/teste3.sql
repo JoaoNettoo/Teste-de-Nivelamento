@@ -53,12 +53,10 @@ SET
     Cargo_Representante = NULLIF(Cargo_Representante, ''),
     Regiao_de_comercializacao = NULLIF(Regiao_de_comercializacao, ''),
     Data_Registro_ANS = STR_TO_DATE(TRIM(BOTH '"' FROM @Data_Registro_ANS), '%Y-%m-%d');
-    
     -- O resultado dessa query pode ser visto na pasta "Teste_3/Prints"
 
     -- Criação de uma única tabela para importar os dados dos arquivos.csv de descrição das despesas das operadoras
     -- do último ano de 2024 
-
 CREATE TABLE despesas_operadoras (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Data DATE,
@@ -71,7 +69,6 @@ CREATE TABLE despesas_operadoras (
 );
 
 -- Importação de cada arquivo.csv, indicando o trimestre
-
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/1T2024.csv' -- Foi salvo localmente nesse caminho para acesso do MySql
 INTO TABLE despesas_operadoras
 FIELDS TERMINATED BY ';'
@@ -88,4 +85,39 @@ SET
     Vl_Saldo_Final = NULLIF(REPLACE(@Vl_Saldo_Final, ',', '.'), ''),
     Trimestre = '1T2024'; -- Necessário alterar para importar o trimestre
 
+
+-- Querie1 pra ver as 10 operadoras com maiores despesas em "EVENTOS/ SINISTROS CONHECIDOS OU AVISADOS DE ASSISTÊNCIA A SAÚDE MEDICO HOSPITALAR" no último trimestre
+SELECT 
+    Reg_ANS, 
+    SUM(Vl_Saldo_Final) AS Total_Despesas
+FROM 
+    despesas_operadoras
+WHERE 
+    (Descricao LIKE '%EVENTOS%' OR 
+    Descricao LIKE '%SINISTROS CONHECIDOS OU AVISADOS DE ASSISTÊNCIA A SAÚDE MEDICO HOSPITALAR%')
+    AND Trimestre = '4T2024' -- Ultimos 3 meses de 2024
+GROUP BY 
+    Reg_ANS
+ORDER BY 
+    Total_Despesas DESC
+LIMIT 10;
+-- O resultado dessa query pode ser visto na pasta "Teste_3/Prints/Querie1"
+
+
+-- Querie2 para ver as 10 operadoras com maiores despesas no último ano de 2024
+SELECT 
+    Reg_ANS, 
+    SUM(Vl_Saldo_Final) AS Total_Despesas
+FROM 
+    despesas_operadoras
+WHERE 
+    (Descricao LIKE '%EVENTOS%' OR 
+    Descricao LIKE '%SINISTROS CONHECIDOS OU AVISADOS DE ASSISTÊNCIA A SAÚDE MEDICO HOSPITALAR%')
+    AND YEAR(Data) = 2024 
+GROUP BY 
+    Reg_ANS
+ORDER BY 
+    Total_Despesas DESC
+LIMIT 10;
+-- O resultado dessa query pode ser visto na pasta "Teste_3/Prints/Querie2"
 
