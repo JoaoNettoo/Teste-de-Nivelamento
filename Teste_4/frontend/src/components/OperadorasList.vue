@@ -18,9 +18,17 @@
       <li v-for="operadora in operadoras" :key="operadora.Registro_ANS">
         <strong>{{ operadora.Nome_Fantasia || operadora.Razao_Social }}</strong>
         <p>CNPJ: {{ operadora.CNPJ }}</p>
+        <p>Nome_Fantasia: {{ operadora.Nome_Fantasia }}</p>
+        <p>Registro_ANS: {{ operadora.Registro_ANS }}</p>
+        <p>Logradouro: {{ operadora.Logradouro }}</p>
+        <p>Numero: {{ operadora.Numero }}</p>
+        <p>Complemento: {{ operadora.Complemento }}</p>
+        <p>Bairro: {{ operadora.Bairro }}</p>
         <p>Cidade: {{ operadora.Cidade }}</p>
         <p>UF: {{ operadora.UF }}</p>
+        <p>CEP: {{ operadora.CEP }}</p>
         <p>Telefone: {{ operadora.Telefone }}</p>
+        <p>Endereco_eletronico: {{ operadora.Endereco_eletronico }}</p>
       </li>
     </ul>
 
