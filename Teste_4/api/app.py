@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from operadoras import buscar_operadoras
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Habilita CORS para evitar bloqueios no navegador
 
 @app.route('/buscar', methods=['GET'])
 def buscar():
