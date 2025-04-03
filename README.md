@@ -20,7 +20,6 @@ Este repositório contém a implementação dos testes de nivelamento, abordando
 
 ✅ Acesso ao site da ANS:
    - [https://www.gov.br/ans](https://www.gov.br/ans/pt-br/acesso-a-informacao/participacao-da-sociedade/atualizacao-do-rol-de-procedimentos)
-
 ✅ Download dos Anexos I e II (PDFs).
 ✅ Compactação dos arquivos em um único `.zip`.
 
@@ -55,8 +54,11 @@ Este repositório contém a implementação dos testes de nivelamento, abordando
 🔹 Frontend: Vue.js 🎨
 
 ✅ Criação de um servidor com **Flask**.
+
 ✅ Endpoint que realiza busca textual nos cadastros de operadoras.
+
 ✅ Exibição dos dados em uma interface Vue.js.
+
 ✅ Testes realizados via **Postman**.
 
 ---
