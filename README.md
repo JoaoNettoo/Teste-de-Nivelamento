@@ -20,7 +20,9 @@ Este repositório contém a implementação dos testes de nivelamento, abordando
 
 ✅ Acesso ao site da ANS:
    - [https://www.gov.br/ans](https://www.gov.br/ans/pt-br/acesso-a-informacao/participacao-da-sociedade/atualizacao-do-rol-de-procedimentos)
+
 ✅ Download dos Anexos I e II (PDFs).
+
 ✅ Compactação dos arquivos em um único `.zip`.
 
 ---
@@ -29,8 +31,11 @@ Este repositório contém a implementação dos testes de nivelamento, abordando
 🔹 Realizado em Python.
 
 ✅ Extração da tabela **Rol de Procedimentos e Eventos em Saúde** (Anexo I do teste anterior).
+
 ✅ Salvamento dos dados em formato **CSV**.
+
 ✅ Compactação do CSV em `Teste_Joao_Neto.zip`.
+
 ✅ Substituição de abreviações nas colunas OD e AMB conforme legenda do rodapé.
 
 ---
@@ -42,7 +47,9 @@ Este repositório contém a implementação dos testes de nivelamento, abordando
    - [Demonstrativos Contábeis](https://dadosabertos.ans.gov.br/FTP/PDA/demonstracoes_contabeis/)
    - [Dados Cadastrais das Operadoras](https://dadosabertos.ans.gov.br/FTP/PDA/operadoras_de_plano_de_saude_ativas/)
 ✅ Criação de tabelas no banco de dados.
+
 ✅ Importação dos arquivos CSV.
+
 ✅ Queries analíticas:
    - **Top 10 operadoras com maiores despesas** em "Eventos/Sinistros Conhecidos ou Avisados de Assistência à Saúde Médico Hospitalar" no **último trimestre**.
    - **Top 10 operadoras com maiores despesas** nessa categoria no **último ano**.
