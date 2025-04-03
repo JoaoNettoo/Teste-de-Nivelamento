@@ -1,4 +1,5 @@
 import pandas as pd
+from collections import OrderedDict
 # Carregar os dados do CSV
 df = pd.read_csv("../data/Relatorio_cadop.csv", sep=";", dtype=str)
 
@@ -11,9 +12,15 @@ def buscar_operadoras(termo):
         df["Razao_Social"].str.lower().str.contains(termo, na=False)
     ]
     # Colunas que devem ser retornadas
-    resultados = filtro[[
-        "Nome_Fantasia", "Razao_Social", "Registro_ANS", 
-        "Cidade", "UF", "Telefone", "Endereco_eletronico"
-    ]].to_dict(orient="records")
+    colunas = [
+        "CNPJ", "Nome_Fantasia", "Razao_Social", "Registro_ANS",
+        "Logradouro", "Numero", "Complemento", "Bairro", "Cidade", "UF", "CEP", "Telefone",
+        "Endereco_eletronico"
+    ]
+
+    resultados = [
+        OrderedDict((coluna, row[coluna]) for coluna in colunas)
+        for _, row in filtro.iterrows()
+    ]
     
     return resultados
