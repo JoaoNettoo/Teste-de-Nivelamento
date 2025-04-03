@@ -1,4 +1,4 @@
-# 📌 Testes de Nivelamento v.250321
+# 📌 Testes de Nivelamento 
 
 ## 📖 Sobre o Projeto
 Este repositório contém a implementação dos testes de nivelamento, abordando scraping de dados, transformação de dados, manipulação de banco de dados e desenvolvimento de uma API.
