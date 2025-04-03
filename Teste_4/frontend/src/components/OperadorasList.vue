@@ -1,57 +1,80 @@
 <template>
-    <div>
-      <h1>Buscar Operadoras de Saúde</h1>
-  
-      <select v-model="tipoBusca">
-        <option value="cnpj">CNPJ</option>
-        <option value="nome">Nome Fantasia</option>
-        <option value="endereco">Endereço</option>
-      </select>
-  
-      <input v-model="termo" :placeholder="placeholderTexto" />
-      <button @click="buscarOperadora">Buscar</button>
-  
-      <ul v-if="operadoras.length">
-        <li v-for="operadora in operadoras" :key="operadora.Registro_ANS">
-          <strong>{{ operadora.Nome_Fantasia || operadora.Razao_Social }}</strong>
-          <p>Cidade: {{ operadora.Cidade }}</p>
-          <p>UF: {{ operadora.UF }}</p>
-          <p>Telefone: {{ operadora.Telefone }}</p>
-        </li>
-      </ul>
-  
-      <p v-else>Nenhuma operadora encontrada.</p>
-    </div>
-  </template>
-  
-  
-  <script>
-  import axios from 'axios';
-  
-  export default {
-    data() {
-      return {
-        termo: '',
-        operadoras: []
-      };
-    },
-    methods: {
-      async buscarOperadora() {
-        try {
-          const response = await axios.get(`http://127.0.0.1:5000/buscar?termo=${this.termo}`);
-          this.operadoras = response.data;
-        } catch (error) {
-          console.error('Erro ao buscar operadora:', error);
-        }
+  <div>
+    <h1>Buscar Operadoras de Saúde</h1>
+
+    <!-- Seleção do tipo de busca -->
+    <select v-model="tipoBusca">
+      <option value="cnpj">CNPJ</option>
+      <option value="nome_fantasia">Nome Fantasia</option>
+      <option value="razao_social">Razão Social</option>
+    </select>
+
+    <!-- Campo de pesquisa -->
+    <input v-model="termo" :placeholder="placeholderTexto" />
+    <button @click="buscarOperadora">Buscar</button>
+
+    <!-- Lista de operadoras -->
+    <ul v-if="operadoras.length">
+      <li v-for="operadora in operadoras" :key="operadora.Registro_ANS">
+        <strong>{{ operadora.Nome_Fantasia || operadora.Razao_Social }}</strong>
+        <p>CNPJ: {{ operadora.CNPJ }}</p>
+        <p>Cidade: {{ operadora.Cidade }}</p>
+        <p>UF: {{ operadora.UF }}</p>
+        <p>Telefone: {{ operadora.Telefone }}</p>
+      </li>
+    </ul>
+
+    <p v-else>Nenhuma operadora encontrada.</p>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      termo: "",
+      tipoBusca: "cnpj", // Padrão como CNPJ
+      operadoras: []
+    };
+  },
+  computed: {
+    placeholderTexto() {
+      // Altera o placeholder conforme o tipo de busca
+      return this.tipoBusca === "cnpj"
+        ? "Digite o CNPJ"
+        : this.tipoBusca === "nome_fantasia"
+        ? "Digite o Nome Fantasia"
+        : "Digite a Razão Social";
+    }
+  },
+  methods: {
+    async buscarOperadora() {
+      if (!this.termo.trim()) {
+        alert("Digite um termo de busca.");
+        return;
+      }
+
+      try {
+        const response = await axios.get(`http://localhost:5000/buscar`, {
+          params: { termo: this.termo, tipo: this.tipoBusca }
+        });
+
+        this.operadoras = response.data;
+      } catch (error) {
+        console.error("Erro ao buscar operadora:", error);
       }
     }
-  };
-  </script>
-  
-  <style scoped>
-  input, button {
-    margin: 5px;
-    padding: 8px;
   }
-  </style>
-  
+};
+</script>
+
+<style scoped>
+input,
+button,
+select {
+  margin: 5px;
+  padding: 8px;
+}
+</style>
